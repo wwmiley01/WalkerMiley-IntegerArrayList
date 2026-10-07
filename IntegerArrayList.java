@@ -34,16 +34,16 @@ public class IntegerArrayList implements IntegerList{
             values[i] = values[i-1];
         }
         values[index] = val;
+        size++;
     }
 
     public Integer remove (int index){
-        if(index < 0 || index>size){
+        if(index < 0 || index>=size){
             throw new IndexOutOfBoundsException(index + " is not a valid index");
         }
         Integer val = values[index];
-        values[index] = null;
-        for (int i = size; i>index; i--){
-            values[i-1] = values[i];
+        for (int i = index; i<size-1; i++){
+            values[i] = values[i+1];
         }
         size--;
         return val;
@@ -64,15 +64,20 @@ public class IntegerArrayList implements IntegerList{
     public void clear(){
         size = 0;
     }
+
     public boolean isEmpty(){
         return size==0;
     }
+
     public String toString(){
         String result = "[";
         for (int i = 0; i<size-1; i++){
             result += values[i]+ ", ";
         }
-        result += values[size - 1]+ "]";
+        if(size> 0)
+            result += values[size - 1];
+
+        result += "]";
         return result;
     }
     public int indexOf(Integer val){
@@ -92,5 +97,17 @@ public class IntegerArrayList implements IntegerList{
             throw new IndexOutOfBoundsException("index " + i + " is out of bounds.");
         }
         return values[i];
+    }
+
+    public boolean equals(List<Integer> other){
+        if(this.size() != other.size()){
+            return false;
+        }
+        for(int i = 0; i<this.size; i++){
+            if(!this.get(i).equals(other.get(i))){
+                return false;
+            }
+        }
+        return true;
     }
 }
