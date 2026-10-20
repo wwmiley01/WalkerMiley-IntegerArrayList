@@ -6,19 +6,65 @@ public class IntegerLinkedList implements IntegerList{
         head = null;
     }
 
+    private Node getNodeAt(int index){
+        if(index<0||index>=size){
+            throw new IndexOutOfBoundsException("Invalid index" + index);
+        }
+        Node current = head;
+        for (int i = 0; i<index; i++){
+            current = current.next;
+        }
+        return current;
+    }
+
     public void add(Integer val){
         Node newNode= new Node(val);
         if(size == 0){
             head = newNode;
         }
         else{
-            Node current = head;
-            while(current.next != null){
-                current = current.next;
-            }
-            current.next = newNode;
-            size++;
+            Node last = getNodeAt(size-1);
+            last.next = newNode;
         }
+        size++;
+    }
+
+    public void add(int index, Integer val){
+        if(index < 0 || index>size){
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
+        }
+        Node newNode= new Node(val);
+        Node old = getNodeAt(index);
+        Node prev = getNodeAt(index-1);
+        newNode.next = old;
+        prev.next = newNode;
+        size++;
+    }
+
+    public void set(int index, Integer val){
+        if(index<size){
+            Node oldNode = getNodeAt(index);
+            oldNode.value = val;
+        }
+        else{
+            throw new IndexOutOfBoundsException("Invalid Index" + index);
+        }
+
+    }
+
+    public void clear(){
+        head = null;
+    }
+
+    public Integer remove (int index){
+        if(index < 0 || index>=size){
+            throw new IndexOutOfBoundsException(index + " is not a valid index");
+        }
+        Integer val = getNodeAt(index).value;
+        Node prev = getNodeAt(index-1);
+        prev.next = getNodeAt(index).next;
+        size--;
+        return val;
     }
 
     public int indexOf(Integer val){
@@ -35,6 +81,67 @@ public class IntegerLinkedList implements IntegerList{
         return -1;
     }
 
+    public Integer get(int i){
+        if (i < 0 || i>=size){
+            throw new IndexOutOfBoundsException("index " + i + " is out of bounds.");
+        }
+        return getNodeAt(i).value;
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public boolean isEmpty(){
+        return size==0;
+    }
+
+    public boolean contains(Integer val){
+        return indexOf(val) != -1;
+    }
+
+    public boolean equals(List<Integer> other){
+        if(this.size() != other.size()){
+            return false;
+        }
+        Node current = head;
+        int index = 0;
+        while(current.next!= null && index<this.size){
+            if(current.value != other.get(index)){
+                return false;
+            }
+            current = current.next;
+            index++;
+        }
+        return true;
+    }
+
+    public int countItterative(){
+        int count = 0;
+        Node current = head;
+        while(current.next !=null){
+            current = current.next;
+            count++;
+        }
+        return count;
+    }
+
+    private int countFrom(Node node) {
+        if (node == null) {
+            return 0;          // base case
+        }
+        return 1 + countFrom(node.next);
+    }
+
+    public int countRecursive() {
+        return countFrom(head);
+    }
+
+
+    public boolean containsRecursive(Integer val){
+        return false;
+    }
+
     public String toString(){
         String result = "[";
         Node current = head;
@@ -42,7 +149,7 @@ public class IntegerLinkedList implements IntegerList{
             result += current.value + ", ";
             current = current.next;
         }
-
+        result += current.value;
         result += "]";
         return result;
     }
@@ -50,8 +157,9 @@ public class IntegerLinkedList implements IntegerList{
         IntegerLinkedList list1 =new IntegerLinkedList();
         list1.add(10);
         list1.add(10);
-        list1.add(10);
-        list1.add(10);
+        list1.add(17);
+        list1.add(12);
+        list1.add(4,5);
 
         System.out.println(list1);
         System.out.println((list1.indexOf(17)));
