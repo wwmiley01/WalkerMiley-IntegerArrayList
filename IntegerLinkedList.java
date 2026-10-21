@@ -18,7 +18,7 @@ public class IntegerLinkedList implements IntegerList{
     }
 
     public void add(Integer val){
-        Node newNode= new Node(val);
+        Node newNode = new Node(val);
         if(size == 0){
             head = newNode;
         }
@@ -33,11 +33,16 @@ public class IntegerLinkedList implements IntegerList{
         if(index < 0 || index>size){
             throw new IndexOutOfBoundsException(index + " is not a valid index");
         }
-        Node newNode= new Node(val);
-        Node old = getNodeAt(index);
-        Node prev = getNodeAt(index-1);
-        newNode.next = old;
-        prev.next = newNode;
+        Node newNode = new Node(val);
+        if(index==0){
+            newNode.next = head;
+            head = newNode;
+        }
+        else{
+            Node prev = getNodeAt(index-1);
+            newNode.next = prev.next;
+            prev.next = newNode;
+        }
         size++;
     }
 
@@ -54,6 +59,7 @@ public class IntegerLinkedList implements IntegerList{
 
     public void clear(){
         head = null;
+        size=0;
     }
 
     public Integer remove (int index){
@@ -61,8 +67,13 @@ public class IntegerLinkedList implements IntegerList{
             throw new IndexOutOfBoundsException(index + " is not a valid index");
         }
         Integer val = getNodeAt(index).value;
+        if(index == 0){
+            head = head.next;
+            size--;
+            return val;
+        }
         Node prev = getNodeAt(index-1);
-        prev.next = getNodeAt(index).next;
+        prev.next = prev.next.next;
         size--;
         return val;
     }
@@ -71,7 +82,7 @@ public class IntegerLinkedList implements IntegerList{
         Node checkNode = new Node(val);
         Node current = head;
         int index = 0;
-        while(current.next!= null){
+        while(current!= null){
             if(current.value.equals(checkNode.value)){
                 return index;
             }
@@ -106,8 +117,8 @@ public class IntegerLinkedList implements IntegerList{
         }
         Node current = head;
         int index = 0;
-        while(current.next!= null && index<this.size){
-            if(current.value != other.get(index)){
+        while(current!= null){
+            if(!current.value.equals(other.get(index))){
                 return false;
             }
             current = current.next;
@@ -128,7 +139,7 @@ public class IntegerLinkedList implements IntegerList{
 
     private int countFrom(Node node) {
         if (node == null) {
-            return 0;          // base case
+            return 0;
         }
         return 1 + countFrom(node.next);
     }
@@ -139,17 +150,41 @@ public class IntegerLinkedList implements IntegerList{
 
 
     public boolean containsRecursive(Integer val){
-        return false;
+        return containsRecursiveHelper(head,val);
+    }
+
+    private boolean containsRecursiveHelper(Node current, Integer val){
+        if(current == null){
+            return false;
+        }
+        if(current.value == val || (current.value!=null && current.value.equals(val))){
+            return true;
+        }
+        return containsRecursiveHelper(current.next, val);
+    }
+
+    public String toStringReversed(){
+        String result = "[";
+        for(int i = size-1; i>=0; i--){
+            result += get(i);
+            if(i>0){
+                result +=", ";
+            }
+        }
+        result +="]";
+        return result;
     }
 
     public String toString(){
         String result = "[";
         Node current = head;
-        while (current.next!= null){
+        while (current != null && current.next != null){
             result += current.value + ", ";
             current = current.next;
         }
-        result += current.value;
+        if(current != null){
+            result += current.value;
+        }
         result += "]";
         return result;
     }

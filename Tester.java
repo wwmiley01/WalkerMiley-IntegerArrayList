@@ -103,7 +103,7 @@ public class Tester {
 
     public static void main(String[] args) {
         Tester.testCase("construct list, add(item) and get(index)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
 
             check("a.size()", a.size(), 0);
 
@@ -125,23 +125,23 @@ public class Tester {
         });
 
         Tester.exceptTestCase("get(invalidPositiveIndex)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1);
             a.get(1);
         });
 
         Tester.exceptTestCase("get() on empty list", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.get(0);
         });
 
         Tester.exceptTestCase("get(negativeIndex)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.get(-1);
         });
         
         Tester.testCase("set", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1);
             a.add(2);
             a.add(3);
@@ -156,23 +156,23 @@ public class Tester {
         });
         
         Tester.exceptTestCase("set(invalidPositiveIndex, value)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1);
             a.set(1,100);
         });
 
         Tester.exceptTestCase("set(0, value) on empty list", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.set(0,100);
         });
         Tester.exceptTestCase("set(negativeIndex, value)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.set(-1, 100);
         });
         
 
         Tester.testCase("add(0, item)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             check("a.size()", a.size(), 0);
             a.add(1);
             check("a.size()", a.size(), 1);
@@ -192,7 +192,7 @@ public class Tester {
         });
 
         Tester.testCase("add(middleIndex,item)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             check("a.size()", a.size(), 0);
             a.add(1);
             a.add(2);
@@ -216,7 +216,7 @@ public class Tester {
         });
 
         Tester.testCase("add(endIndex,item)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             check("a.size()", a.size(), 0);
             a.add(0, 1);
             check("a.size()", a.size(), 1);
@@ -251,7 +251,7 @@ public class Tester {
         });
         
         Tester.testCase("add() requiring expansion of internal array", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             for(int i = 0; i < 5000; i++) {
                 a.add(1);
             }
@@ -277,7 +277,7 @@ public class Tester {
         });
         
         Tester.testCase("add(index, val) requiring expansion of internal array", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             for(int i = 0; i < 5000; i++) {
                 a.add(i,1);
             }
@@ -304,24 +304,24 @@ public class Tester {
 
 
         Tester.exceptTestCase("add(PositiveIndex, value) to empty list", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1, 2);
         });
 
         Tester.exceptTestCase("add(invalidPositiveIndex, value)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(5);
             a.add(10);
             a.add(3, 2);
         });
         
         Tester.exceptTestCase("add(negativeIndex, value)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(-1, 2);
         });
 
         Tester.testCase("remove(middleIndex), then remove(lastIndex), then remove(0)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1);
             a.add(2);
             a.add(3);
@@ -342,7 +342,7 @@ public class Tester {
         });
         
          Tester.testCase("remove(indexFromLastHalf)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+             IntegerLinkedList a = new IntegerLinkedList();
             for (int i=0; i<10; i++)
                 a.add(i);
             System.out.println(a);
@@ -370,7 +370,7 @@ public class Tester {
         });
         
         Tester.testCase("remove(indexFromFirstHalf)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             for (int i=0; i<10; i++)
                 a.add(i);
             System.out.println(a);
@@ -398,7 +398,7 @@ public class Tester {
         });
 
         Tester.testCase("remove position 0 from list", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1);
             a.add(2);
             a.add(3);
@@ -416,25 +416,25 @@ public class Tester {
         });
         
         Tester.exceptTestCase("remove() from empty list", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.remove(0);
             
         });
         Tester.exceptTestCase("remove(invalidPositiveIndex)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(5);
             a.add(6);
             a.remove(2);
             
         });
         Tester.exceptTestCase("remove(negativeIndex)", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(5);
             a.remove(-2);
         });   
 
         Tester.testCase("clear and isEmpty", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1);
             check("a.size()", a.size(), 1);
             a.clear();
@@ -449,7 +449,7 @@ public class Tester {
         });
 
         Tester.testCase("indexOf and contains", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1);
             a.add(2);
             a.add(3);
@@ -464,7 +464,7 @@ public class Tester {
         });
 
         Tester.testCase("toString", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             check("empty list toString()", a.toString(), "[]");
             a.add(1);
             check("one-element toString()", a.toString(), "[1]");
@@ -477,7 +477,7 @@ public class Tester {
         });
 
         Tester.testCase("contains", () -> {
-            IntegerArrayList a = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
             a.add(1);
             a.add(2);
             a.add(3);
@@ -489,23 +489,23 @@ public class Tester {
         });
 
         Tester.testCase("equals two empty lists", () -> {
-            IntegerArrayList a = new IntegerArrayList();
-            IntegerArrayList b = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
+            IntegerLinkedList b = new IntegerLinkedList();
 
             check("a.equals(b)", a.equals(b), true);
         });
         
         Tester.testCase("equals unequal size", () -> {
-            IntegerArrayList a = new IntegerArrayList();
-            IntegerArrayList b = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
+            IntegerLinkedList b = new IntegerLinkedList();
 
             a.add(1);
             check("a.equals(b)", a.equals(b), false);
         });
         
         Tester.testCase("equals equal size", () -> {
-            IntegerArrayList a = new IntegerArrayList();
-            IntegerArrayList b = new IntegerArrayList();
+            IntegerLinkedList a = new IntegerLinkedList();
+            IntegerLinkedList b = new IntegerLinkedList();
 
             a.add(1);
             b.add(1);

@@ -26,7 +26,7 @@ public class TestList
 
     public static void main(String[] args)
     {
-        IntegerArrayList myList = new IntegerArrayList();
+        IntegerLinkedList myList = new IntegerLinkedList();
 
         System.out.println("--- Empty list ---");
         try
@@ -154,7 +154,7 @@ public class TestList
 
             // add(index, value) must grow the array too -- it is a separate method.
             // A NEW list: clear() keeps the big array, so myList would never need to grow.
-            IntegerArrayList fresh = new IntegerArrayList();
+            IntegerLinkedList fresh = new IntegerLinkedList();
             for (int i=0; i<20; i++)
             {
                 fresh.add(0, i);     // always at the FRONT, so the list ends up backwards
